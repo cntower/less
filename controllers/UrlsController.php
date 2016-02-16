@@ -6,7 +6,7 @@ use Yii;
 use app\models\Urls;
 use app\models\UrlsSearch;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
+//use yii\filters\VerbFilter;
 use yii\web\Response;
 
 /**
@@ -142,6 +142,7 @@ class UrlsController extends Controller
                 $model->locator = $locator;
                 if ($model->save()){
                     $num = $model->primaryKey;
+                    //генерируется идентификатор из primaryKey
                     $w = $this->arrToWord($this->tenToFifty($num));
                     $res = array(
                         'body'    => 'http://less.ru/' . $w,
