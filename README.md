@@ -58,7 +58,6 @@ if ($model->save()){
          ],
  ```
 
-
 DIRECTORY STRUCTURE
 -------------------
 
