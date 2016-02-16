@@ -15,19 +15,7 @@ use yii\web\Response;
 class UrlsController extends Controller
 {
     public $jsFile;
-/*
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
-*/
+
     /**
      *Главное действие, получая на входе идентификатор ищет в БД соответствующую ссылку
      * и пересылает к ней, иначе выводит форму

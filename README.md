@@ -16,6 +16,48 @@
 1.	Использование CMS фреймворка Yii, Yii2, Laravel, etc.;
 2.	На стороне клиента можно использовать любой фреймворк.
 
+РАЗРАБОТКА
+----------
+Для разработки был выбран Yii2, использовался базовый шаблон.
+
+ Наиболее простым алгоритмом укорачивания ссылок будет сохранение в
+ базе данных переданной ссылки и возврат пользователю идентификатора (ключа)
+ который будет однозначно указывать на сохраненную ссылку.
+ less.ru/controllers/UrlsController.php
+```php
+...
+if ($model->save()){
+    $num = $model->primaryKey;
+    //генерируется идентификатор из primaryKey
+    $w = $this->arrToWord($this->tenToFifty($num));
+    $res = array(
+        'body'    => 'http://less.ru/' . $w,
+        'success' => true,
+    );
+}
+...
+```
+ Для представления ключа можно использовать буквы латинского алфавита, это
+ 25 символов в нижнем регистре и 25 в верхнем - всего 50. Значит можно для записи
+ использовать 50-ную систему счисления.
+
+ Для возможности использовать ЧПУ:
+ ```php
+ 'components' => [
+ ...
+          'urlManager' => [
+             //включает ЧПУ
+             'enablePrettyUrl' => true,
+             //скрывает index...
+             'showScriptName' => false,
+             'enableStrictParsing' => false,
+             'rules' => [
+                 //правило передает в urls/index параметр $word
+                 '/<word>' => 'urls/index',
+             ],
+         ],
+ ```
+
 
 DIRECTORY STRUCTURE
 -------------------
@@ -31,24 +73,3 @@ DIRECTORY STRUCTURE
       vendor/             contains dependent 3rd-party packages
       views/              contains view files for the Web application
       web/                contains the entry script and Web resources
-
-
-РАЗРАБОТКА
-----------
-Для разработки был выбран Yii2, использовался базовый шаблон.
-
- Наиболее простым алгоритмом укорачивания ссылок будет сохранение в
- базе данных переданной ссылки и возврат пользователю идентификатора (ключа)
- который будет однозначно указывать на сохраненную ссылку.
-
-```php
-if ($model->save()){
-    $num = $model->primaryKey;
-    //генерируется идентификатор из primaryKey
-    $w = $this->arrToWord($this->tenToFifty($num));
-    $res = array(
-        'body'    => 'http://less.ru/' . $w,
-        'success' => true,
-    );
-}
-```
